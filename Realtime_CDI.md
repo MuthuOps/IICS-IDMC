@@ -9,7 +9,21 @@ After completing this module, you will be able to:
 
 1, Header and footer in single target.  
 --------------Rank(bottom)      
- source ->-------------------> target  
+ source ->-------------------> UNION ->----------> target  
 --------------Rank(top)  
 Note: choose single row as return in rank.  
-Also need to remember 
+Also need to remember rank will sort the data according to its operation 
+so in order to get output in right order sort the data after union or 
+do rank in reverse order.
+
+
+2.Store Previous row data in Next column. 
+Sequence ->---- 
+---------------> Expression ------> target 
+Source ->------ 
+
+Note: the expression will executed in the order of expression in it.  
+expression rules for the requirement below:  
+1, In_var = iif(NEXTVAL=1,NULL,in_previuos_salary)  
+2, In_var = salarya (in_previous_salary)  
+3, Out_var = step 1(result)  
