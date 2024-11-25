@@ -36,5 +36,22 @@ source---------------------------------------->Joiner ------> router(1 or >1)---
 --------->sorter(for another flow)->-----  
 Note: before joining a flow from aggregator it should be sorted.  
 
+4.Distinct records and duplicate on different targets.
+----------------------------------------------------->target_1  
+source------->Expression------>router(1 or >1)-------   
+----------------------------------------------------->target_2
+Note: the expression will executed in the order of expression in it.  
+expression rules for the requirement below:  
+1, current data= input  
+2, store count = iff(step 1 = previous_record, count+1, 1)  
+3, previous_record = input  
+4, O_count = step 2
 
-4.SCD2 type data update.  
+
+5.even and odd rows in different targets.  
+---------------------------------------------------------------------------------->target_1  
+Source-------> sequence -------> expression -----> Router(nextval=0 or not) ------  
+---------------------------------------------------------------------------------->target_2  
+Note: the expression will executed in the order of expression in it.  
+expression rules for the requirement below:  
+1, O_nextval=MOD(nextval,2)  
