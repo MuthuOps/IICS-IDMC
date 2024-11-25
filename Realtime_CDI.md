@@ -27,3 +27,14 @@ expression rules for the requirement below:
 1, In_var = iif(NEXTVAL=1,NULL,in_previuos_salary)  
 2, In_var = salarya (in_previous_salary)  
 3, Out_var = step 1(result)  
+
+
+3.Unique records and non unique records(duplicates) on different targets.  
+---------> Aggregate----------> sorter->----  
+-------------(group and count value)  
+source---------------------------------------->Joiner ------> router(1 or >1)----->target  
+--------->sorter(for another flow)->-----  
+Note: before joining a flow from aggregator it should be sorted.  
+
+
+4.SCD2 type data update.  
