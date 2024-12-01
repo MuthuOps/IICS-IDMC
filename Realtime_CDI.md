@@ -55,3 +55,62 @@ Source-------> sequence -------> expression -----> Router(nextval=0 or not) ----
 Note: the expression will executed in the order of expression in it.  
 expression rules for the requirement below:  
 1, O_nextval=MOD(nextval,2)  
+
+6.header, footer and rest records in different targets.  
+
+------------>sequence------->aggregateor(max,no group)----//////////////////////////////////////------>target(1 head)  
+source------/////////////////////////////////////////----->joiner(full)----->router(1,or max,def)----->target(default)  
+------------>sequence-------------------------------------///////////////////////////////////////----->target(max foot)  
+
+Note:  
+* when joining a data from aggregator should check the tick of sorted input.  
+* when no group by selected in aggregator it will give last row as output.  
+* use full outer join as aggregator will have 1 record and source will have full recors.  
+
+7,covert column to row without using normalizer.  
+------------>experssion(col1)------>sequence------   
+source------>experssion(col2)------>sequence------>Union---->sorter---->target  
+------------>expression(col3)------>sequence------  
+
+Note:  
+* sequence need to be there to get perfect alignment of conversion. 
+
+8, convert row to column without using normalizer.  
+* type 1 in single column  
+
+  source------>expression----->aggregator---->target  
+
+  Note:  
+  1, for variable = IIF(id=prev_id,CONCAT(variable,dep ),dep)  
+  2, then group by in aggregator
+
+* type 2 in different columns
+
+  source------>expression----->aggregator---->target
+
+  Note:  
+  1, for counter = IIF(id=prev_id,counter+1,1)  
+  2, col1=if counter is 1 store here  
+  3, col2=if counter is 2 store here  
+  4, col3=if counter is 3 store here  
+
+  2, then max each col in aggregator with group by id so all other null values in col will be omitted.
+
+9, dynamic file creation using transaction control  
+
+source------>sorter----->expression----->transactionControl----->target  
+
+Note:  
+* expression  
+  ![image](https://github.com/user-attachments/assets/0dd5bc12-f867-469c-a21b-3ae8240655b3)  
+* TC  
+  ![image](https://github.com/user-attachments/assets/08dc35f2-a573-4476-9a1f-f7c1ad15dfa3)  
+  iif(O_flag='YES',tc_commit_before,tc_continue_transaction)
+
+* TGT  
+  ![image](https://github.com/user-attachments/assets/e7261b80-6944-44c5-881f-58ccb36344a8)
+
+* MC
+  in post command we can execute this "rm output*.out" to avoid extra file generation.  
+
+
