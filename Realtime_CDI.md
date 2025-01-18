@@ -36,25 +36,44 @@ source---------------------------------------->Joiner ------> router(1 or >1)---
 --------->sorter(for another flow)->-----  
 Note: before joining a flow from aggregator it should be sorted.  
 
-4.Distinct records and duplicate on different targets.
------------------------------------------------------>target_1  
-source------->Expression------>router(1 or >1)-------   
------------------------------------------------------>target_2
-Note: the expression will executed in the order of expression in it.  
-expression rules for the requirement below:  
-1, current data= input  
-2, store count = iff(step 1 = previous_record, count+1, 1)  
-3, previous_record = input  
-4, O_count = step 2
+4.Distinct records and duplicate on different targets.,
+
+* type 1: (losing records)  
+  ---------------------------------------------------------------------------------->target_1  
+  source--------->aggregate (count) -----> router (count = 1 or not) -----  
+  ---------------------------------------------------------------------------------->target_2
+
+* type 2: ( without losing data)  
+  ----------------------------------------------------->target_1  
+  source------->Expression------>router(1 or >1)-------   
+  ----------------------------------------------------->target_2
+  Note: the expression will executed in the order of expression in it.  
+  expression rules for the requirement below:  
+  1, current data= input  
+  2, store count = iff(step 1 = previous_record, count+1, 1)  
+  3, previous_record = input  
+  4, O_count = step 2
 
 
 5.even and odd rows in different targets.  
----------------------------------------------------------------------------------->target_1  
-Source-------> sequence -------> expression -----> Router(nextval=0 or not) ------  
----------------------------------------------------------------------------------->target_2  
-Note: the expression will executed in the order of expression in it.  
-expression rules for the requirement below:  
-1, O_nextval=MOD(nextval,2)  
+
+* type 1:  
+  ---------------------------------------------------------------------------------->target_1  
+  Source-------> sequence -------> expression -----> Router(nextval=0 or not) ------  
+  ---------------------------------------------------------------------------------->target_2  
+  Note: the expression will executed in the order of expression in it.  
+  expression rules for the requirement below:  
+  1, O_nextval=MOD(nextval,2)  
+
+* type 2:   
+  ---------------------------------------------------------------------------------->target_1  
+  Source-------> sequence -------> Router(MOD(nextval,2) = 0 or 1) ------  
+  ---------------------------------------------------------------------------------->target_2
+
+* type 3:  
+  ---------------------------------------------------------------------------------->target_1  
+  Source-------> sequence(cyclic 1 to 2) ------->Router(nextval=1 or 2) ------  
+  ---------------------------------------------------------------------------------->target_2
 
 6.header, footer and rest records in different targets.  
 
@@ -112,5 +131,25 @@ Note:
 
 * MC
   in post command we can execute this "rm output*.out" to avoid extra file generation.  
+
+10, Load all the records except last 5 records. 
+
+Source -----> sequence -----> sorter(to make decending on nextval)---->  
+---------------------------------------------------------------------->filter(new nextval >5)---->target  
+------------>sequence------------------------------------------------->  
+
+
+Note:
+cannot use active transformation upstream multiple times.  
+new sequnce needed to filter because the old sequence already have some value done.  
+
+11, load every 4th record into the target  
+
+source------->sequence------>filter------>target   
+
+Note:  
+in sequence it should be cyclic and start from 1 and end with 4.  
+
+![image](https://github.com/user-attachments/assets/1e77eb60-9eea-4ff8-8481-d92dff15a775)
 
 
