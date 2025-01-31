@@ -1,4 +1,4 @@
-1, what is transformation in informatica?
+![image](https://github.com/user-attachments/assets/0e72d154-cad6-4886-9887-958671b9a983)1, what is transformation in informatica?
 
 * Transformations in informatica are informatica objects which is used to perform specific task that create    
   modify or pass data to defined target.  
@@ -50,3 +50,48 @@ single row (last row) as it has no command to aggregate data.
 
 8, what will happen if you select all grouo by port in aggregator transformation?    
 -> it will remove all the duplicated in the data.    
+
+9, Diff between drop and delete and truncate
+![image](https://github.com/user-attachments/assets/d483a4d1-f855-4794-a7da-beb4df8e669a)
+
+10, 
+![image](https://github.com/user-attachments/assets/ddb62345-0dc8-47f4-bd66-0bb4613c0594)
+
+
+![image](https://github.com/user-attachments/assets/f545a46e-0633-47aa-acdb-a4b04a4035f4)
+
+
+![image](https://github.com/user-attachments/assets/6e7eeb1a-5860-483f-89bc-25b4cc09351b)
+
+![image](https://github.com/user-attachments/assets/db4f76c0-beca-4522-bb6c-ac9015ad9ce2)
+
+![image](https://github.com/user-attachments/assets/963db904-2633-470c-9516-7a9d1ee01b5b)
+
+![image](https://github.com/user-attachments/assets/5a912827-243e-4aa4-b11f-929844461e31)
+
+pdo partitioning 
+index...
+
+cardinality
+
+btree - high cardinality
+
+bitmap index - low cardinality slower
+
+reverse index - 
+
+unique index- automatic for primary key
+
+what ever fields after where or on join conditions
+
+view index partition explain plan
+
+![image](https://github.com/user-attachments/assets/0e9f07f5-45ff-43a6-af63-a92e7fcfcf1c)
+
+
+I have extensive experience in development and administration activities, particularly in the automobile industry with Mercedes-Benz. In my development role, I have worked on integrating multiple data sources, including Oracle and Salesforce, by gathering requirements from customers, designing ETL mappings, creating test cases, performing unit testing, and facilitating SIT and UAT phases before deploying solutions to production after successful dry runs. I have also developed Unix scripts for monitoring secure agents and managing large cache creation mappings. On the administrative side, I have been instrumental in building new environments from scratch and successfully migrating organizations from one pod to another in Informatica while ensuring data integrity and minimal disruption. Additionally, I contributed to implementing SCIM integration for efficient user management. My role encompasses end-to-end ownership of processes, from requirement analysis to deployment and maintenance, ensuring seamless operations and high-quality deliverables.
+
+An App Connection defines a link to a data source, a database, or a Service Connector
+
+
+
